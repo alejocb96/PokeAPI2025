@@ -1,6 +1,6 @@
 # Pokémon Favorites - PokeAPI 🔴⚪
 
-## 🚀 Proyecto de Prueba Técnica - Frontend Developer (Vue.js)
+## 🚀 Proyecto de Prueba Técnica - Frontend Developer (Vue.js)3
 
 Aplicación web moderna para gestionar una lista de Pokémons favoritos utilizando la [PokeAPI](https://pokeapi.co/).
 
