@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import StarIconGray from '@/assets/icons/StarIconGray.svg'
+import { usePokemonStore } from '@/stores/pokemon'
 import StarIconGold from '@/assets/icons/StarIconGold.svg'
+import StarIconWhite from '@/assets/icons/StarIconWhite.svg'
 import VectorIcon from '@/assets/icons/Vector.svg'
 import BackGroundModals from '@/assets/icons/BackGroundModals.svg'
 
@@ -19,10 +20,8 @@ const isLoading = ref(false)
 const pokemon = ref<any>(null)
 const error = ref('')
 
-// Obtener los favoritos del localStorage
-const favorites = ref<Set<number>>(
-  new Set(JSON.parse((localStorage as Storage).getItem('pokemonFavorites') || '[]'))
-)
+// Usar el store de Pinia para favoritos
+const store = usePokemonStore()
 
 async function fetchPokemonDetail() {
   if (!props.pokemonId) return
@@ -47,15 +46,7 @@ function toggleFavorite() {
   if (!pokemon.value) return
 
   const pokemonId = pokemon.value.id
-  if (favorites.value.has(pokemonId)) {
-    favorites.value.delete(pokemonId)
-  } else {
-    favorites.value.add(pokemonId)
-  }
-
-  // Guardar en localStorage como array de números
-  const favoritesArray = Array.from(favorites.value)
-  ;(localStorage as Storage).setItem('pokemonFavorites', JSON.stringify(favoritesArray))
+  store.toggleFavorite(pokemonId)
 }
 
 function closeModal() {
@@ -76,7 +67,7 @@ async function handleShare() {
 }
 
 const isFavorite = computed(() => {
-  return pokemon.value ? favorites.value.has(pokemon.value.id) : false
+  return pokemon.value ? store.isFavorite(pokemon.value.id) : false
 })
 
 const pokemonImage = computed(() => {
@@ -181,7 +172,11 @@ onUnmounted(() => {
             :class="{ 'is-favorite': isFavorite }"
             @click="toggleFavorite"
           >
-            <img :src="isFavorite ? StarIconGold : StarIconGray" alt="Favorite" class="star-icon" />
+            <img
+              :src="isFavorite ? StarIconGold : StarIconWhite"
+              alt="Favorite"
+              class="star-icon"
+            />
           </button>
         </div>
       </div>
@@ -302,11 +297,7 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.info-row:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .info-label {
@@ -329,7 +320,6 @@ onUnmounted(() => {
   justify-content: space-between;
   padding: 1rem 1.5rem;
   background: white;
-  border-top: 1px solid #f3f4f6;
 }
 
 .share-btn {

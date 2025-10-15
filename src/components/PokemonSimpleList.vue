@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import LoadingSpinner from './LoadingSpinner.vue'
 import PokemonModal from './PokemonModal.vue'
+import { usePokemonStore } from '@/stores/pokemon'
 import SearchIcon from '@/assets/icons/SearchIcon.svg'
 import StarIconGray from '@/assets/icons/StarIconGray.svg'
 import StarIconGold from '@/assets/icons/StarIconGold.svg'
@@ -13,10 +14,8 @@ const pokemons = ref<Pokemon[]>([])
 const selectedPokemonId = ref<number | null>(null)
 const isModalOpen = ref(false)
 
-// Obtener los favoritos del localStorage
-const favorites = ref<Set<number>>(
-  new Set(JSON.parse((localStorage as Storage).getItem('pokemonFavorites') || '[]'))
-)
+// Usar el store de Pinia para favoritos
+const store = usePokemonStore()
 
 interface Pokemon {
   id: number
@@ -39,7 +38,7 @@ async function fetchPokemons() {
       return {
         id,
         name: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
-        isFavorite: favorites.value.has(id)
+        isFavorite: store.isFavorite(id)
       }
     })
   } catch (error) {
@@ -79,12 +78,6 @@ function setupIntersectionObserver() {
   })
 }
 
-// Guardar favoritos en localStorage
-function saveFavorites() {
-  const favoritesArray = Array.from(favorites.value)
-  ;(localStorage as Storage).setItem('pokemonFavorites', JSON.stringify(favoritesArray))
-}
-
 const filteredPokemons = computed(() => {
   let filtered = pokemons.value
 
@@ -104,13 +97,8 @@ const filteredPokemons = computed(() => {
 })
 
 function toggleFavorite(pokemon: Pokemon) {
-  pokemon.isFavorite = !pokemon.isFavorite
-  if (pokemon.isFavorite) {
-    favorites.value.add(pokemon.id)
-  } else {
-    favorites.value.delete(pokemon.id)
-  }
-  saveFavorites()
+  store.toggleFavorite(pokemon.id)
+  pokemon.isFavorite = store.isFavorite(pokemon.id)
 }
 
 function handlePokemonClick(pokemonId: number) {
@@ -121,15 +109,10 @@ function handlePokemonClick(pokemonId: number) {
 function closeModal() {
   isModalOpen.value = false
   selectedPokemonId.value = null
-  // Actualizar favoritos desde localStorage
-  const updatedFavorites = new Set(
-    JSON.parse((localStorage as Storage).getItem('pokemonFavorites') || '[]')
-  )
-  favorites.value = updatedFavorites
 
-  // Actualizar el estado de favoritos en la lista
+  // Actualizar el estado de favoritos en la lista desde el store
   pokemons.value.forEach((pokemon) => {
-    pokemon.isFavorite = favorites.value.has(pokemon.id)
+    pokemon.isFavorite = store.isFavorite(pokemon.id)
   })
 }
 

@@ -18,14 +18,14 @@ const props = defineProps<{
 const store = usePokemonStore()
 const { copyToClipboard, copied } = useClipboard()
 
-const isFavorite = computed(() => store.isFavorite(props.pokemon.name))
+const isFavorite = computed(() => store.isFavorite(props.pokemon.id))
 const pokemonName = computed(() => formatPokemonName(props.pokemon.name))
 const pokemonId = computed(() => formatPokemonId(props.pokemon.id))
 const pokemonImage = computed(() => getPokemonImageUrl(props.pokemon))
 const backgroundColor = computed(() => getPokemonTypeColor(props.pokemon))
 
 function toggleFavorite() {
-  store.toggleFavorite(props.pokemon.name)
+  store.toggleFavorite(props.pokemon.id)
 }
 
 async function handleShare() {
