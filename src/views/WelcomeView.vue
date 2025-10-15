@@ -33,7 +33,11 @@ async function handleGetStarted() {
       <div class="welcome-icon">
         <div class="pikachu-wrapper">
           <div class="red-circle"></div>
-          <img src="@/assets/icons/iconGetStarted.svg" alt="Pikachu Welcome" class="pikachu-image" />
+          <img
+            src="@/assets/icons/iconGetStarted.svg"
+            alt="Pikachu Welcome"
+            class="pikachu-image"
+          />
         </div>
       </div>
 
@@ -42,8 +46,8 @@ async function handleGetStarted() {
 
       <!-- Descripción -->
       <p class="welcome-description">
-        The digital encyclopedia created by Professor Oak is an invaluable tool
-        to Trainers in the Pokémon world.
+        The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the
+        Pokémon world.
       </p>
 
       <!-- Botón Get Started -->
@@ -51,9 +55,7 @@ async function handleGetStarted() {
         <template v-if="isLoading">
           <img :src="Loader" alt="Loading" class="loader" />
         </template>
-        <template v-else>
-          Get started
-        </template>
+        <template v-else> Get started </template>
       </button>
     </div>
   </div>
@@ -113,20 +115,20 @@ async function handleGetStarted() {
   font-family: 'lato', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
-  color:#353535;
+  color: #353535;
   margin-bottom: 1rem;
 }
 
 .welcome-description {
   font-family: 'lato', sans-serif;
   font-size: 1rem;
-  color: #5E5E5E;
+  color: #5e5e5e;
   line-height: 1.5;
   margin-bottom: 2rem;
 }
 
 .get-started-btn {
-  background: #F22539;
+  background: #f22539;
   color: white;
   border: none;
   border-radius: 30px;
@@ -140,7 +142,7 @@ async function handleGetStarted() {
 }
 
 .get-started-btn:hover {
-  background: #cc2222;
+  background: #c00e20;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(221, 51, 51, 0.3);
 }
@@ -195,7 +197,6 @@ async function handleGetStarted() {
     padding: 2.5rem 1.5rem;
   }
 
-
   .welcome-title {
     font-size: 1.5rem;
   }
@@ -209,4 +210,3 @@ async function handleGetStarted() {
   }
 }
 </style>
-

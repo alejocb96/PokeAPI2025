@@ -80,7 +80,7 @@ export function usePokemon() {
   const pokemonsWithFavorites = computed(() => {
     return pokemons.value.map((pokemon) => ({
       ...pokemon,
-      isFavorite: store.isFavorite(pokemon.name)
+      isFavorite: store.isFavorite(pokemon.id)
     }))
   })
 

@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import type { Pokemon } from '@/types/pokemon'
 
-const FAVORITES_STORAGE_KEY = 'pokemon_favorites'
+const FAVORITES_STORAGE_KEY = 'pokemonFavorites'
 
 export const usePokemonStore = defineStore('pokemon', () => {
   // Estado
-  const favorites = ref<string[]>(loadFavoritesFromStorage())
+  const favorites = ref<number[]>(loadFavoritesFromStorage())
   const pokemonCache = ref<Map<string, Pokemon>>(new Map())
   const isLoading = ref(false)
   const error = ref<string | null>(null)
@@ -16,7 +16,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
   const hasFavorites = computed(() => favorites.value.length > 0)
 
   // Funciones
-  function loadFavoritesFromStorage(): string[] {
+  function loadFavoritesFromStorage(): number[] {
     try {
       const stored = localStorage.getItem(FAVORITES_STORAGE_KEY)
       return stored ? JSON.parse(stored) : []
@@ -34,29 +34,29 @@ export const usePokemonStore = defineStore('pokemon', () => {
     }
   }
 
-  function addFavorite(pokemonName: string) {
-    if (!favorites.value.includes(pokemonName)) {
-      favorites.value.push(pokemonName)
+  function addFavorite(pokemonId: number) {
+    if (!favorites.value.includes(pokemonId)) {
+      favorites.value.push(pokemonId)
     }
   }
 
-  function removeFavorite(pokemonName: string) {
-    const index = favorites.value.indexOf(pokemonName)
+  function removeFavorite(pokemonId: number) {
+    const index = favorites.value.indexOf(pokemonId)
     if (index > -1) {
       favorites.value.splice(index, 1)
     }
   }
 
-  function toggleFavorite(pokemonName: string) {
-    if (isFavorite(pokemonName)) {
-      removeFavorite(pokemonName)
+  function toggleFavorite(pokemonId: number) {
+    if (isFavorite(pokemonId)) {
+      removeFavorite(pokemonId)
     } else {
-      addFavorite(pokemonName)
+      addFavorite(pokemonId)
     }
   }
 
-  function isFavorite(pokemonName: string): boolean {
-    return favorites.value.includes(pokemonName)
+  function isFavorite(pokemonId: number): boolean {
+    return favorites.value.includes(pokemonId)
   }
 
   function clearFavorites() {
@@ -105,4 +105,3 @@ export const usePokemonStore = defineStore('pokemon', () => {
     clearCache
   }
 })
-

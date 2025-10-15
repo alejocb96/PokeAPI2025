@@ -81,4 +81,3 @@ export function getPokemonStats(pokemon: Pokemon) {
     value: stat.base_stat
   }))
 }
-

@@ -37,49 +37,49 @@ describe('Pokemon Store', () => {
 
   it('debería agregar un pokemon a favoritos', () => {
     const store = usePokemonStore()
-    store.addFavorite('pikachu')
+    store.addFavorite(25)
 
-    expect(store.favorites).toContain('pikachu')
+    expect(store.favorites).toContain(25)
     expect(store.favoritesCount).toBe(1)
     expect(store.hasFavorites).toBe(true)
-    expect(store.isFavorite('pikachu')).toBe(true)
+    expect(store.isFavorite(25)).toBe(true)
   })
 
   it('no debería agregar pokémons duplicados', () => {
     const store = usePokemonStore()
-    store.addFavorite('pikachu')
-    store.addFavorite('pikachu')
+    store.addFavorite(25)
+    store.addFavorite(25)
 
     expect(store.favorites).toHaveLength(1)
   })
 
   it('debería remover un pokemon de favoritos', () => {
     const store = usePokemonStore()
-    store.addFavorite('pikachu')
-    store.addFavorite('charizard')
+    store.addFavorite(25)
+    store.addFavorite(6)
 
-    store.removeFavorite('pikachu')
+    store.removeFavorite(25)
 
-    expect(store.favorites).not.toContain('pikachu')
-    expect(store.favorites).toContain('charizard')
+    expect(store.favorites).not.toContain(25)
+    expect(store.favorites).toContain(6)
     expect(store.favoritesCount).toBe(1)
   })
 
   it('debería alternar el estado de favorito', () => {
     const store = usePokemonStore()
     
-    store.toggleFavorite('pikachu')
-    expect(store.isFavorite('pikachu')).toBe(true)
+    store.toggleFavorite(25)
+    expect(store.isFavorite(25)).toBe(true)
 
-    store.toggleFavorite('pikachu')
-    expect(store.isFavorite('pikachu')).toBe(false)
+    store.toggleFavorite(25)
+    expect(store.isFavorite(25)).toBe(false)
   })
 
   it('debería limpiar todos los favoritos', () => {
     const store = usePokemonStore()
-    store.addFavorite('pikachu')
-    store.addFavorite('charizard')
-    store.addFavorite('bulbasaur')
+    store.addFavorite(25)
+    store.addFavorite(6)
+    store.addFavorite(1)
 
     store.clearFavorites()
 
@@ -89,13 +89,13 @@ describe('Pokemon Store', () => {
 
   it('debería persistir favoritos en localStorage', async () => {
     const store = usePokemonStore()
-    store.addFavorite('pikachu')
+    store.addFavorite(25)
 
     // Esperar a que el watcher se ejecute
     await new Promise((resolve) => setTimeout(resolve, 0))
 
-    const stored = localStorage.getItem('pokemon_favorites')
-    expect(stored).toBe('["pikachu"]')
+    const stored = localStorage.getItem('pokemonFavorites')
+    expect(stored).toBe('[25]')
   })
 
   it('debería cachear un pokemon', () => {
