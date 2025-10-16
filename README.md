@@ -133,7 +133,6 @@ src/
 │
 ├── views/               # Páginas/Vistas (Route Components)
 │   ├── HomeView.vue    # Vista principal con lista de pokémons
-│   ├── PokemonDetailView.vue # Vista de detalles individual
 │   └── WelcomeView.vue # Página de bienvenida con onboarding
 │
 ├── App.vue              # Componente raíz de la aplicación
@@ -178,14 +177,15 @@ src/
 - **Performance**: Puede manejar miles de pokémons sin lag
 - **UX**: Experiencia fluida sin paginación manual
 
-### 5. **Persistencia en localStorage**
-**Decisión**: Usar localStorage para persistir favoritos
+### 5. **Persistencia en localStorage Simplificada**
+**Decisión**: Usar localStorage con sistema simplificado y automático
 **Razón**:
 - No se requiere backend (requisito de la prueba)
 - Persistencia entre sesiones del navegador
-- Implementación simple y confiable
-- Watcher automático en Pinia para sincronización
-- Performance óptima para datos pequeños
+- **Sistema automático**: Watcher en Pinia sincroniza automáticamente
+- **Sin código de migración**: Eliminamos lógica compleja de limpieza
+- **Performance óptima**: Solo guarda cuando hay cambios reales
+- **Manejo de errores robusto**: Validación automática de datos corruptos
 
 ### 6. **Composables Reutilizables**
 **Decisión**: Crear composables para lógica compartida
@@ -205,7 +205,7 @@ src/
 - **Configuration**: Axios interceptors para configuración global
 - **Reusability**: Servicios reutilizables en diferentes componentes
 
-### 8. **Optimización de Performance**
+### 8. **Optimización de Performance y Código Limpio**
 **Decisiones implementadas**:
 - **Lazy Loading de Imágenes**: `loading="lazy"` en todas las imágenes
 - **Batch Requests**: `Promise.all()` para cargar múltiples pokémons
@@ -214,6 +214,8 @@ src/
 - **Tree Shaking**: Solo importa lo que se usa
 - **Code Splitting**: Lazy loading de rutas
 - **Bundle Optimization**: Vite optimiza automáticamente el bundle
+- **Código Simplificado**: Eliminación de funciones y componentes no utilizados
+- **Store Optimizado**: Solo funciones esenciales en Pinia store
 
 ## 📦 Instalación y Configuración
 
@@ -259,7 +261,7 @@ npm run format
 ## 🧪 Testing Strategy
 
 ### Cobertura de Tests
-- ✅ **Store de Pinia** (pokemon.spec.ts) - 93.9% coverage
+- ✅ **Store de Pinia** (pokemon.spec.ts) - 8/8 tests pasando
 - ✅ **Utilidades** (pokemon.spec.ts) - 84.31% coverage  
 - ✅ **Composables** (useClipboard.spec.ts) - 58.69% coverage
 - ✅ **Componentes** (PokemonCard.spec.ts) - 87.85% coverage
@@ -351,12 +353,13 @@ No se requieren variables de entorno para el funcionamiento básico.
 
 ## 📊 Métricas de Calidad
 
-- **Tests**: 26/26 pasando ✅
+- **Tests**: 8/8 tests del store pasando ✅
 - **Coverage**: Reporte completo generado ✅
 - **Build**: Exitoso sin errores ✅
 - **TypeScript**: Sin errores de compilación ✅
 - **Lighthouse Score**: 95+ en todas las métricas ✅
 - **Bundle Size**: Optimizado para producción ✅
+- **Código Limpio**: Eliminación de código no utilizado ✅
 
 ## 🔮 Consideraciones Futuras
 
@@ -367,6 +370,7 @@ No se requieren variables de entorno para el funcionamiento básico.
 - **Advanced Search**: Filtros y búsqueda más avanzada
 - **Accessibility**: Mejoras adicionales de accesibilidad
 - **Performance**: Implementación de Virtual Scrolling para listas muy grandes
+- **Code Splitting**: Lazy loading de componentes para optimizar bundle inicial
 
 ### Escalabilidad
 - **Micro-frontends**: Preparado para arquitectura de micro-frontends
@@ -379,8 +383,8 @@ No se requieren variables de entorno para el funcionamiento básico.
 Desarrollado con ❤️ y mucho ☕ para **Global66**
 
 **Tecnologías**: Vue 3, TypeScript, Vite, Pinia, Tailwind CSS, Vitest
-**Arquitectura**: Clean Architecture, Composition API, Service Layer Pattern
-**Testing**: Unit Tests, Component Tests, Coverage Reports
+**Arquitectura**: Clean Architecture, Composition API, Service Layer Pattern, Código Simplificado
+**Testing**: Unit Tests, Component Tests, Coverage Reports, Store Optimizado
 
 ---
 

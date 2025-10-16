@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { usePokemonStore } from '../pokemon'
 
@@ -35,9 +35,9 @@ describe('Pokemon Store', () => {
     expect(store.hasFavorites).toBe(false)
   })
 
-  it('debería agregar un pokemon a favoritos', () => {
+  it('debería agregar un pokemon a favoritos con toggleFavorite', () => {
     const store = usePokemonStore()
-    store.addFavorite(25)
+    store.toggleFavorite(25)
 
     expect(store.favorites).toContain(25)
     expect(store.favoritesCount).toBe(1)
@@ -47,49 +47,40 @@ describe('Pokemon Store', () => {
 
   it('no debería agregar pokémons duplicados', () => {
     const store = usePokemonStore()
-    store.addFavorite(25)
-    store.addFavorite(25)
+    store.toggleFavorite(25)
+    store.toggleFavorite(25)
 
-    expect(store.favorites).toHaveLength(1)
+    expect(store.favorites).toHaveLength(0) // Se agrega y luego se quita
   })
 
-  it('debería remover un pokemon de favoritos', () => {
+  it('debería remover un pokemon de favoritos con toggleFavorite', () => {
     const store = usePokemonStore()
-    store.addFavorite(25)
-    store.addFavorite(6)
-
-    store.removeFavorite(25)
+    store.toggleFavorite(25) // Agregar
+    store.toggleFavorite(6)  // Agregar otro
+    store.toggleFavorite(25) // Remover el primero
 
     expect(store.favorites).not.toContain(25)
     expect(store.favorites).toContain(6)
     expect(store.favoritesCount).toBe(1)
   })
 
-  it('debería alternar el estado de favorito', () => {
+  it('debería alternar el estado de favorito correctamente', () => {
     const store = usePokemonStore()
 
+    // Agregar a favoritos
     store.toggleFavorite(25)
     expect(store.isFavorite(25)).toBe(true)
+    expect(store.favoritesCount).toBe(1)
 
+    // Remover de favoritos
     store.toggleFavorite(25)
     expect(store.isFavorite(25)).toBe(false)
-  })
-
-  it('debería limpiar todos los favoritos', () => {
-    const store = usePokemonStore()
-    store.addFavorite(25)
-    store.addFavorite(6)
-    store.addFavorite(1)
-
-    store.clearFavorites()
-
-    expect(store.favorites).toEqual([])
     expect(store.favoritesCount).toBe(0)
   })
 
   it('debería persistir favoritos en localStorage', async () => {
     const store = usePokemonStore()
-    store.addFavorite(25)
+    store.toggleFavorite(25)
 
     // Esperar a que el watcher se ejecute
     await new Promise((resolve) => setTimeout(resolve, 0))
@@ -117,18 +108,9 @@ describe('Pokemon Store', () => {
     expect(cached).toEqual(mockPokemon)
   })
 
-  it('debería limpiar el cache', () => {
+  it('debería retornar undefined para pokemon no cacheado', () => {
     const store = usePokemonStore()
-    const mockPokemon: any = {
-      id: 25,
-      name: 'pikachu',
-      height: 4,
-      weight: 60
-    }
-
-    store.cachePokemon(mockPokemon)
-    store.clearCache()
-
+    
     const cached = store.getCachedPokemon('pikachu')
     expect(cached).toBeUndefined()
   })

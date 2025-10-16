@@ -8,8 +8,6 @@ export const usePokemonStore = defineStore('pokemon', () => {
   // Estado
   const favorites = ref<number[]>(loadFavoritesFromStorage())
   const pokemonCache = ref<Map<string, Pokemon>>(new Map())
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
 
   // Computed
   const favoritesCount = computed(() => favorites.value.length)
@@ -34,33 +32,17 @@ export const usePokemonStore = defineStore('pokemon', () => {
     }
   }
 
-  function addFavorite(pokemonId: number) {
-    if (!favorites.value.includes(pokemonId)) {
-      favorites.value.push(pokemonId)
-    }
-  }
-
-  function removeFavorite(pokemonId: number) {
+  function toggleFavorite(pokemonId: number) {
     const index = favorites.value.indexOf(pokemonId)
     if (index > -1) {
       favorites.value.splice(index, 1)
-    }
-  }
-
-  function toggleFavorite(pokemonId: number) {
-    if (isFavorite(pokemonId)) {
-      removeFavorite(pokemonId)
     } else {
-      addFavorite(pokemonId)
+      favorites.value.push(pokemonId)
     }
   }
 
   function isFavorite(pokemonId: number): boolean {
     return favorites.value.includes(pokemonId)
-  }
-
-  function clearFavorites() {
-    favorites.value = []
   }
 
   // Cache para mejorar performance
@@ -70,10 +52,6 @@ export const usePokemonStore = defineStore('pokemon', () => {
 
   function getCachedPokemon(name: string): Pokemon | undefined {
     return pokemonCache.value.get(name)
-  }
-
-  function clearCache() {
-    pokemonCache.value.clear()
   }
 
   // Watchers para persistencia automática
@@ -89,19 +67,13 @@ export const usePokemonStore = defineStore('pokemon', () => {
     // Estado
     favorites,
     pokemonCache,
-    isLoading,
-    error,
     // Computed
     favoritesCount,
     hasFavorites,
     // Métodos
-    addFavorite,
-    removeFavorite,
     toggleFavorite,
     isFavorite,
-    clearFavorites,
     cachePokemon,
-    getCachedPokemon,
-    clearCache
+    getCachedPokemon
   }
 })
