@@ -97,4 +97,3 @@ describe('PokemonCard', () => {
     expect(shareBtn.text()).toContain('Compartir')
   })
 })
-

@@ -17,7 +17,7 @@ const favoritesCount = computed(() => store.favoritesCount)
         <p class="app-subtitle">Descubre y guarda tus Pokémons favoritos</p>
       </div>
 
-      <div class="favorites-badge" v-if="favoritesCount > 0">
+      <div v-if="favoritesCount > 0" class="favorites-badge">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -135,4 +135,3 @@ const favoritesCount = computed(() => store.favoritesCount)
   }
 }
 </style>
-

@@ -23,15 +23,15 @@ describe('useClipboard', () => {
 
   it('debería establecer copied a true después de copiar', async () => {
     const { copyToClipboard, copied } = useClipboard()
-    
+
     await copyToClipboard('test')
-    
+
     expect(copied.value).toBe(true)
   })
 
   it('debería manejar errores al copiar', async () => {
     const { copyToClipboard, error } = useClipboard()
-    
+
     // Mock error
     navigator.clipboard.writeText = vi.fn(() => Promise.reject(new Error('Failed')))
 
@@ -41,4 +41,3 @@ describe('useClipboard', () => {
     expect(error.value).toBeTruthy()
   })
 })
-

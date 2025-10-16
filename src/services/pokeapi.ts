@@ -59,4 +59,3 @@ class PokeApiService {
 
 // Exportar una instancia singleton
 export const pokeApiService = new PokeApiService()
-

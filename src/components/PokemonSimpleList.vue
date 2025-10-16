@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import LoadingSpinner from './LoadingSpinner.vue'
 import PokemonModal from './PokemonModal.vue'
 import { usePokemonStore } from '@/stores/pokemon'
-import SearchIcon from '@/assets/icons/SearchIcon.svg'
+import SearchIcon from '@/assets/icons/SearchIconNew.svg'
 import StarIconGray from '@/assets/icons/StarIconGray.svg'
 import StarIconGold from '@/assets/icons/StarIconGold.svg'
 
@@ -245,8 +245,8 @@ onMounted(() => {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   pointer-events: none;
 }
 
@@ -282,9 +282,17 @@ onMounted(() => {
 .pokemon-list {
   width: 570px;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 80px;
   padding: 0;
   overflow-y: auto;
+  /* Scroll invisible */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.pokemon-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 @media (max-width: 640px) {
@@ -445,6 +453,10 @@ onMounted(() => {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
+}
+
+.filter-btn span {
+  transform: translateY(2px);
 }
 
 .filter-btn.active {

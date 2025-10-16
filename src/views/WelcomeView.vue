@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Loader from '@/assets/icons/Loader.svg'
+import CircleRed from '@/assets/icons/CircleRed.svg'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -32,9 +33,9 @@ async function handleGetStarted() {
       <!-- Icono de Pikachu con fondo circular rojo -->
       <div class="welcome-icon">
         <div class="pikachu-wrapper">
-          <div class="red-circle"></div>
+          <img :src="CircleRed" alt="Circle" class="red-circle" />
           <img
-            src="@/assets/icons/iconGetStarted.svg"
+            src="@/assets/icons/IconGetStarted.svg"
             alt="Pikachu Welcome"
             class="pikachu-image"
           />
@@ -81,7 +82,7 @@ async function handleGetStarted() {
 }
 
 .welcome-icon {
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 }
 
 .pikachu-wrapper {
@@ -92,14 +93,10 @@ async function handleGetStarted() {
 .red-circle {
   position: absolute;
   width: 225px;
-  height: 220px;
-  background: #dd3333;
-  border-radius: 50%;
-  border: 3px solid #000;
+  height: 225px;
   top: 57%;
   left: 51%;
   transform: translate(-50%, -50%);
-  z-index: 1;
 }
 
 .pikachu-image {
@@ -108,7 +105,7 @@ async function handleGetStarted() {
   position: relative;
   z-index: 1;
   display: block;
-  transform: translate(14px, -11.5px);
+  transform: translate(15px, -8px);
 }
 
 .welcome-title {
@@ -195,6 +192,16 @@ async function handleGetStarted() {
 @media (max-width: 640px) {
   .welcome-content {
     padding: 2.5rem 1.5rem;
+  }
+
+  .red-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .pikachu-image {
+    width: 280px;
+    transform: translate(11px, -7px);
   }
 
   .welcome-title {

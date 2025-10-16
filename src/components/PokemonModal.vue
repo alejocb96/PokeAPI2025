@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import { usePokemonStore } from '@/stores/pokemon'
 import StarIconGold from '@/assets/icons/StarIconGold.svg'
-import StarIconWhite from '@/assets/icons/StarIconWhite.svg'
+import StarIconGray from '@/assets/icons/StarIconGray.svg'
 import VectorIcon from '@/assets/icons/Vector.svg'
 import BackGroundModals from '@/assets/icons/BackGroundModals.svg'
 
@@ -172,11 +172,7 @@ onUnmounted(() => {
             :class="{ 'is-favorite': isFavorite }"
             @click="toggleFavorite"
           >
-            <img
-              :src="isFavorite ? StarIconGold : StarIconWhite"
-              alt="Favorite"
-              class="star-icon"
-            />
+            <img :src="isFavorite ? StarIconGold : StarIconGray" alt="Favorite" class="star-icon" />
           </button>
         </div>
       </div>
@@ -256,6 +252,13 @@ onUnmounted(() => {
   flex-direction: column;
   overflow-y: auto;
   max-height: 100%;
+  /* Scroll invisible */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.pokemon-detail::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .pokemon-image-container {
@@ -323,10 +326,11 @@ onUnmounted(() => {
 }
 
 .share-btn {
+  font-family: 'Lato', sans-serif;
   background: #f22539;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 60px;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   cursor: pointer;
@@ -345,17 +349,17 @@ onUnmounted(() => {
 }
 
 .favorite-btn {
-  background: rgba(0, 0, 0, 0.05);
+  background: #f5f5f5;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
 }
 
 .favorite-btn:hover {
@@ -363,14 +367,14 @@ onUnmounted(() => {
 }
 
 .star-icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 
 /* Responsive para móvil */
 @media (max-width: 640px) {
   .modal-content {
-    width: 315px;
+    width: 90%;
     max-height: 85vh;
     margin: 1rem;
   }

@@ -140,7 +140,9 @@ async function handleShare() {
 .pokemon-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   transition: all 0.3s ease;
   position: relative;
@@ -151,7 +153,9 @@ async function handleShare() {
 
 .pokemon-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 12px 20px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
@@ -358,4 +362,3 @@ async function handleShare() {
   height: 20px;
 }
 </style>
-

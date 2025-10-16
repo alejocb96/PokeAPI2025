@@ -92,7 +92,7 @@ describe('Pokemon Utils', () => {
   describe('generateShareText', () => {
     it('debería generar el texto correcto para compartir', () => {
       const shareText = generateShareText(mockPokemon)
-      
+
       expect(shareText).toContain('Pikachu')
       expect(shareText).toContain('#025')
       expect(shareText).toContain('Electric')
@@ -120,4 +120,3 @@ describe('Pokemon Utils', () => {
     })
   })
 })
-

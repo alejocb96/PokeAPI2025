@@ -67,7 +67,7 @@ describe('Pokemon Store', () => {
 
   it('debería alternar el estado de favorito', () => {
     const store = usePokemonStore()
-    
+
     store.toggleFavorite(25)
     expect(store.isFavorite(25)).toBe(true)
 
@@ -133,4 +133,3 @@ describe('Pokemon Store', () => {
     expect(cached).toBeUndefined()
   })
 })
-

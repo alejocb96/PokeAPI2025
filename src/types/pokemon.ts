@@ -64,4 +64,3 @@ export interface PokemonAbility {
 export interface PokemonWithFavorite extends Pokemon {
   isFavorite?: boolean
 }
-
