@@ -35,7 +35,7 @@ async function handleGetStarted() {
         <div class="pikachu-wrapper">
           <img :src="CircleRed" alt="Circle" class="red-circle" />
           <img
-            src="@/assets/icons/IconGetStarted.svg"
+            src="@/assets/icons/IconGetStartedTemp.svg"
             alt="Pikachu Welcome"
             class="pikachu-image"
           />
